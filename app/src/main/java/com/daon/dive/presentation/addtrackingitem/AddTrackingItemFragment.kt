@@ -40,20 +40,16 @@ class AddTrackingItemFragment : ScopeFragment(), AddTrackingItemsContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindView()
-        presenter.onViewCreated()
-
         changeInvoiceIfAvailable()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         hideKeyboard()
-        presenter.onDestroyView()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.onDestroy()
     }
 
     override fun showShippingCompaniesLoadingIndicator() {
@@ -131,7 +127,6 @@ class AddTrackingItemFragment : ScopeFragment(), AddTrackingItemsContract.View {
             presenter.changeSelectedShippingCompany(group.findViewById<Chip>(checkedId).text.toString())
         }
         binding?.invoiceEditText?.addTextChangedListener { editable ->
-            presenter.changeShippingInvoice(editable.toString())
         }
         binding?.saveButton?.setOnClickListener { _ ->
             presenter.saveTrackingItem()
@@ -146,7 +141,6 @@ class AddTrackingItemFragment : ScopeFragment(), AddTrackingItemsContract.View {
                 .setTitle("클립 보드에 있는 $invoice 를 운송장 번호로 추가하시겠습니까?")
                 .setPositiveButton("추가할래요") { _, _ ->
                     binding?.invoiceEditText?.setText(invoice)
-                    presenter.fetchRecommendShippingCompany()
                 }
                 .setNegativeButton("안할래요") { _, _ -> }
                 .create()
