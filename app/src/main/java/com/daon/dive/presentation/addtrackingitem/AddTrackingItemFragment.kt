@@ -13,7 +13,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.children
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.daon.dive.data.entity.ShippingCompany
 import com.daon.dive.databinding.FragmentAddTrackingItemBinding
@@ -129,7 +128,6 @@ class AddTrackingItemFragment : ScopeFragment(), AddTrackingItemsContract.View {
         binding?.invoiceEditText?.addTextChangedListener { editable ->
         }
         binding?.saveButton?.setOnClickListener { _ ->
-            presenter.saveTrackingItem()
         }
     }
 
@@ -141,6 +139,7 @@ class AddTrackingItemFragment : ScopeFragment(), AddTrackingItemsContract.View {
                 .setTitle("클립 보드에 있는 $invoice 를 운송장 번호로 추가하시겠습니까?")
                 .setPositiveButton("추가할래요") { _, _ ->
                     binding?.invoiceEditText?.setText(invoice)
+                    presenter.fetchRecommendShippingCompany()
                 }
                 .setNegativeButton("안할래요") { _, _ -> }
                 .create()
