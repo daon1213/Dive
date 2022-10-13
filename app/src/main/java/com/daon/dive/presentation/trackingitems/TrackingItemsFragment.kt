@@ -1,6 +1,5 @@
 package com.daon.dive.presentation.trackingitems
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +14,12 @@ import com.daon.dive.databinding.FragmentTrackingItemsBinding
 import com.daon.dive.extension.toGone
 import com.daon.dive.extension.toInvisible
 import com.daon.dive.extension.toVisible
-import com.daon.dive.presentation.trackingitems.TrackingItemsContract.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ScopeFragment
 
-class TrackingItemsFragment : ScopeFragment(), TrackingItemsContract.View {
+class TrackingItemsFragment : ScopeFragment() {
 
-    override val presenter: Presenter by inject()
+    val presenter: TrackingItemsContract.Presenter by inject()
 
     private var binding: FragmentTrackingItemsBinding? = null
 
@@ -37,35 +35,31 @@ class TrackingItemsFragment : ScopeFragment(), TrackingItemsContract.View {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         bindView()
-        presenter.onViewCreated()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        presenter.onDestroyView()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.onDestroy()
     }
 
-    override fun showLoadingIndicator() {
+    fun showLoadingIndicator() {
         binding?.progressBar?.toVisible()
     }
 
-    override fun hideLoadingIndicator() {
+    fun hideLoadingIndicator() {
         binding?.progressBar?.toGone()
         binding?.refreshLayout?.isRefreshing = false
     }
 
-    override fun showNoDataDescription() {
+    fun showNoDataDescription() {
         binding?.refreshLayout?.toInvisible()
         binding?.noDataContainer?.toVisible()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    override fun showTrackingItemInformation(trackingItemInformation: List<Pair<TrackingItem, TrackingInformation>>) {
+    fun showTrackingItemInformation(trackingItemInformation: List<Pair<TrackingItem, TrackingInformation>>) {
         binding?.refreshLayout?.toVisible()
         binding?.noDataContainer?.toGone()
         (binding?.recyclerView?.adapter as? TrackingItemsAdapter)?.apply {
@@ -97,4 +91,3 @@ class TrackingItemsFragment : ScopeFragment(), TrackingItemsContract.View {
         }
     }
 }
-
