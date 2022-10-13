@@ -7,13 +7,14 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.work.*
 import com.daon.dive.R
 import com.daon.dive.databinding.ActivityMainBinding
+import com.daon.dive.databinding.ActivityMainBinding.*
 import com.daon.dive.work.TrackingCheckWorker
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
-    private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val binding: ActivityMainBinding by lazy { inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
