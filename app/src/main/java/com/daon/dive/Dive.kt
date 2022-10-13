@@ -1,6 +1,7 @@
 package com.daon.dive
 
 import android.app.Application
+import android.content.Context
 import androidx.work.Configuration
 import com.daon.dive.di.appModule
 import com.daon.dive.work.AppWorkerFactory
@@ -12,10 +13,12 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
 class Dive : Application(), Configuration.Provider {
+
     private val workerFactory: AppWorkerFactory by inject()
 
     override fun onCreate() {
         super.onCreate()
+        appContext = this
         startKoin {
             androidLogger(
                 if (BuildConfig.DEBUG) {
@@ -40,4 +43,14 @@ class Dive : Application(), Configuration.Provider {
             )
             .setWorkerFactory(workerFactory)
             .build()
+
+    override fun onTerminate() {
+        super.onTerminate()
+        appContext = null
+    }
+
+    companion object {
+        var appContext: Context? = null
+            private set
+    }
 }
