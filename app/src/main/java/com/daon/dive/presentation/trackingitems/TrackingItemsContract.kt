@@ -7,15 +7,15 @@ import com.daon.dive.presentation.BaseView
 
 class TrackingItemsContract {
 
-    interface View : BaseView<Presenter> {
+    abstract inner class View(override val presenter: Presenter) : BaseView<Presenter> {
 
-        fun showLoadingIndicator()
+        abstract fun showLoadingIndicator()
 
-        fun hideLoadingIndicator()
+        abstract fun hideLoadingIndicator()
 
-        fun showNoDataDescription()
+        abstract fun showNoDataDescription()
 
-        fun showTrackingItemInformation(trackingItemInformation: List<Pair<TrackingItem, TrackingInformation>>)
+        abstract fun showTrackingItemInformation(trackingItemInformation: List<Pair<TrackingItem, TrackingInformation>>)
     }
 
     interface Presenter : BasePresenter {
