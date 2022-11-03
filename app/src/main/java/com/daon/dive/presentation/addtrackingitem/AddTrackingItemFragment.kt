@@ -18,13 +18,14 @@ import com.daon.dive.data.entity.ShippingCompany
 import com.daon.dive.databinding.FragmentAddTrackingItemBinding
 import com.daon.dive.extension.toGone
 import com.daon.dive.extension.toVisible
+import com.daon.dive.presentation.addtrackingitem.AddTrackingItemsContract.*
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ScopeFragment
 
 class AddTrackingItemFragment : ScopeFragment(), AddTrackingItemsContract.View {
 
-    override val presenter: AddTrackingItemsContract.Presenter by inject()
+    override val presenter: Presenter by inject()
 
     private var binding: FragmentAddTrackingItemBinding? = null
 
