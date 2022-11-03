@@ -1,9 +1,9 @@
 package com.daon.dive.presentation.trackingitems
 
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.daon.dive.data.entity.TrackingInformation
 import com.daon.dive.data.entity.TrackingItem
 import com.daon.dive.data.repository.TrackingItemRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -16,7 +16,7 @@ class TrackingItemsPresenter(
 
     override var trackingItemInformation: List<Pair<TrackingItem, TrackingInformation>> = emptyList()
 
-    override val scope: CoroutineScope = MainScope()
+    override val scope: LifecycleCoroutineScope = MainScope() as LifecycleCoroutineScope
 
     init {
         trackingItemRepository
