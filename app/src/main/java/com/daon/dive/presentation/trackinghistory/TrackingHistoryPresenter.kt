@@ -1,9 +1,9 @@
 package com.daon.dive.presentation.trackinghistory
 
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.daon.dive.data.entity.TrackingInformation
 import com.daon.dive.data.entity.TrackingItem
 import com.daon.dive.data.repository.TrackingItemRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
@@ -14,7 +14,7 @@ class TrackingHistoryPresenter(
     private var trackingInformation: TrackingInformation
 ) : TrackingHistoryContract.Presenter {
 
-    override val scope: CoroutineScope = MainScope()
+    override val scope: LifecycleCoroutineScope = MainScope() as LifecycleCoroutineScope
 
     override fun onViewCreated() {
         view.showTrackingItemInformation(trackingItem, trackingInformation)
