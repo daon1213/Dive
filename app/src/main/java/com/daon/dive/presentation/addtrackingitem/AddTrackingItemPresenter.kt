@@ -1,12 +1,11 @@
 package com.daon.dive.presentation.addtrackingitem
 
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.daon.dive.data.entity.ShippingCompany
 import com.daon.dive.data.entity.TrackingItem
 import com.daon.dive.data.repository.ShippingCompanyRepository
 import com.daon.dive.data.repository.TrackingItemRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class AddTrackingItemPresenter(
@@ -15,7 +14,7 @@ class AddTrackingItemPresenter(
     private val trackerRepository: TrackingItemRepository
 ) : AddTrackingItemsContract.Presenter {
 
-    override val scope: CoroutineScope = MainScope()
+    override val scope: LifecycleCoroutineScope = MainScope() as LifecycleCoroutineScope
 
     override var invoice: String? = null
     override var shippingCompanies: List<ShippingCompany>? = null
