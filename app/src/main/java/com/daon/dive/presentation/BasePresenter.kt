@@ -1,12 +1,12 @@
 package com.daon.dive.presentation
 
 import androidx.annotation.CallSuper
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.LifecycleCoroutineScope
 import kotlinx.coroutines.cancel
 
 interface BasePresenter {
 
-    val scope: CoroutineScope
+    val scope: LifecycleCoroutineScope
 
     fun onViewCreated()
 
