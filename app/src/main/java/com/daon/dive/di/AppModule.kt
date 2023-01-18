@@ -68,7 +68,7 @@ val appModule = module {
     single<PreferenceManager> { SharedPreferenceManager(get()) }
 
     // Repository
-    // single<TrackingItemRepository> { TrackingItemRepositoryStub() }
+//    single<TrackingItemRepository> { TrackingItemRepositoryStub() }
     single<TrackingItemRepository> { TrackingItemRepositoryImpl(get(), get(), get()) }
     single<ShippingCompanyRepository> { ShippingCompanyRepositoryImpl(get(), get(), get(), get()) }
 
@@ -77,17 +77,16 @@ val appModule = module {
 
     // Presentation
     scope<TrackingItemsFragment> {
-        scoped<TrackingItemsContract.Presenter> { TrackingItemsPresenter(get(), get()) }
+        scoped<TrackingItemsContract.Presenter> { TrackingItemsPresenter(getSource(), get()) }
     }
-
     scope<AddTrackingItemFragment> {
         scoped<AddTrackingItemsContract.Presenter> {
-            AddTrackingItemPresenter(get(), get(), get())
+            AddTrackingItemPresenter(getSource(), get(), get())
         }
     }
     scope<TrackingHistoryFragment> {
         scoped<TrackingHistoryContract.Presenter> { (trackingItem: TrackingItem, trackingInformation: TrackingInformation) ->
-            TrackingHistoryPresenter(get(), get(), trackingItem, trackingInformation)
+            TrackingHistoryPresenter(getSource(), get(), trackingItem, trackingInformation)
         }
     }
 }
