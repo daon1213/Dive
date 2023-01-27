@@ -18,7 +18,6 @@ class Dive : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
-        appContext = this
         startKoin {
             androidLogger(
                 if (BuildConfig.DEBUG) {
@@ -43,14 +42,4 @@ class Dive : Application(), Configuration.Provider {
             )
             .setWorkerFactory(workerFactory)
             .build()
-
-    override fun onTerminate() {
-        super.onTerminate()
-        appContext = null
-    }
-
-    companion object {
-        var appContext: Context? = null
-            private set
-    }
 }
