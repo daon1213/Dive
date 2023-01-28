@@ -19,7 +19,6 @@ import org.koin.core.parameter.parametersOf
 
 class TrackingHistoryFragment : ScopeFragment(), TrackingHistoryContract.View {
 
-
     override val presenter: TrackingHistoryContract.Presenter by inject {
         parametersOf(arguments.item, arguments.information)
     }
@@ -69,7 +68,7 @@ class TrackingHistoryFragment : ScopeFragment(), TrackingHistoryContract.View {
         }
     }
 
-    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
+    @SuppressLint("SetTextI18n")
     override fun showTrackingItemInformation(
         trackingItem: TrackingItem,
         trackingInformation: TrackingInformation
