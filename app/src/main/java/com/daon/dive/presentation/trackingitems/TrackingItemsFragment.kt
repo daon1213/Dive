@@ -17,9 +17,9 @@ import com.daon.dive.extension.toVisible
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ScopeFragment
 
-class TrackingItemsFragment : ScopeFragment() {
+class TrackingItemsFragment : ScopeFragment(), TrackingItemsContract.View {
 
-    val presenter: TrackingItemsContract.Presenter by inject()
+    override val presenter: TrackingItemsContract.Presenter by inject()
 
     private var binding: FragmentTrackingItemsBinding? = null
 
@@ -35,31 +35,34 @@ class TrackingItemsFragment : ScopeFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         bindView()
+        presenter.onViewCreated()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        presenter.onDestroyView()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        presenter.onDestroy()
     }
 
-    fun showLoadingIndicator() {
+    override fun showLoadingIndicator() {
         binding?.progressBar?.toVisible()
     }
 
-    fun hideLoadingIndicator() {
+    override fun hideLoadingIndicator() {
         binding?.progressBar?.toGone()
         binding?.refreshLayout?.isRefreshing = false
     }
 
-    fun showNoDataDescription() {
+    override fun showNoDataDescription() {
         binding?.refreshLayout?.toInvisible()
         binding?.noDataContainer?.toVisible()
     }
 
-    fun showTrackingItemInformation(trackingItemInformation: List<Pair<TrackingItem, TrackingInformation>>) {
+    override fun showTrackingItemInformation(trackingItemInformation: List<Pair<TrackingItem, TrackingInformation>>) {
         binding?.refreshLayout?.toVisible()
         binding?.noDataContainer?.toGone()
         (binding?.recyclerView?.adapter as? TrackingItemsAdapter)?.apply {
