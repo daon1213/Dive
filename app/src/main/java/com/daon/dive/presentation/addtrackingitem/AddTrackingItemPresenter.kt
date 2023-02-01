@@ -1,20 +1,20 @@
 package com.daon.dive.presentation.addtrackingitem
 
-import androidx.lifecycle.LifecycleCoroutineScope
 import com.daon.dive.data.entity.ShippingCompany
 import com.daon.dive.data.entity.TrackingItem
 import com.daon.dive.data.repository.ShippingCompanyRepository
 import com.daon.dive.data.repository.TrackingItemRepository
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class AddTrackingItemPresenter(
-    private val view: AddTrackingItemsContract.View,
+    private val view: AddTrackingItemsContract.View?,
     private val shippingCompanyRepository: ShippingCompanyRepository,
     private val trackerRepository: TrackingItemRepository
 ) : AddTrackingItemsContract.Presenter {
 
-    override val scope: LifecycleCoroutineScope = MainScope() as LifecycleCoroutineScope
+    override val scope: CoroutineScope = MainScope()
 
     override var invoice: String? = null
     override var shippingCompanies: List<ShippingCompany>? = null
@@ -28,21 +28,21 @@ class AddTrackingItemPresenter(
 
     override fun fetchShippingCompanies() {
         scope.launch {
-            view.showShippingCompaniesLoadingIndicator()
+            view?.showShippingCompaniesLoadingIndicator()
             if (shippingCompanies.isNullOrEmpty()) {
                 shippingCompanies = shippingCompanyRepository.getShippingCompanies()
             }
 
-            shippingCompanies?.let { view.showCompanies(it) }
-            view.hideShippingCompaniesLoadingIndicator()
+            shippingCompanies?.let { view?.showCompanies(it) }
+            view?.hideShippingCompaniesLoadingIndicator()
         }
     }
 
     override fun fetchRecommendShippingCompany() {
         scope.launch {
-            view.showRecommendCompanyLoadingIndicator()
-            shippingCompanyRepository.getRecommendShippingCompany(invoice!!)?.let { view.showRecommendCompany(it) }
-            view.hideRecommendCompanyLoadingIndicator()
+            view?.showRecommendCompanyLoadingIndicator()
+            shippingCompanyRepository.getRecommendShippingCompany(invoice!!)?.let { view?.showRecommendCompany(it) }
+            view?.hideRecommendCompanyLoadingIndicator()
         }
     }
 
@@ -59,27 +59,27 @@ class AddTrackingItemPresenter(
     override fun saveTrackingItem() {
         scope.launch {
             try {
-                view.showSaveTrackingItemIndicator()
+                view?.showSaveTrackingItemIndicator()
                 trackerRepository.saveTrackingItem(
                     TrackingItem(
                         invoice!!,
                         selectedShippingCompany!!
                     )
                 )
-                view.finish()
+                view?.finish()
             } catch (exception: Exception) {
-                view.showErrorToast(exception.message ?: "서비스에 문제가 생겨서 운송장을 추가하지 못했어요 😢")
+                view?.showErrorToast(exception.message ?: "서비스에 문제가 생겨서 운송장을 추가하지 못했어요 😢")
             } finally {
-                view.hideSaveTrackingItemIndicator()
+                view?.hideSaveTrackingItemIndicator()
             }
         }
     }
 
     private fun enableSaveButtonIfAvailable() {
         if (!invoice.isNullOrBlank() && selectedShippingCompany != null) {
-            view.enableSaveButton()
+            view?.enableSaveButton()
         } else {
-            view.disableSaveButton()
+            view?.disableSaveButton()
         }
     }
 }
