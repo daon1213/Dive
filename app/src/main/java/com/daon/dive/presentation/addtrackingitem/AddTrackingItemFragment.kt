@@ -25,7 +25,7 @@ import org.koin.androidx.scope.ScopeFragment
 
 class AddTrackingItemFragment : ScopeFragment(), AddTrackingItemsContract.View {
 
-    override val presenter: Presenter by inject()
+    override val presenter: AddTrackingItemsContract.Presenter by inject()
 
     private var binding: FragmentAddTrackingItemBinding? = null
 
@@ -40,16 +40,20 @@ class AddTrackingItemFragment : ScopeFragment(), AddTrackingItemsContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindView()
+        presenter.onViewCreated()
+
         changeInvoiceIfAvailable()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         hideKeyboard()
+        presenter.onDestroyView()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        presenter.onDestroy()
     }
 
     override fun showShippingCompaniesLoadingIndicator() {
@@ -127,8 +131,10 @@ class AddTrackingItemFragment : ScopeFragment(), AddTrackingItemsContract.View {
             presenter.changeSelectedShippingCompany(group.findViewById<Chip>(checkedId).text.toString())
         }
         binding?.invoiceEditText?.addTextChangedListener { editable ->
+            presenter.changeShippingInvoice(editable.toString())
         }
         binding?.saveButton?.setOnClickListener { _ ->
+            presenter.saveTrackingItem()
         }
     }
 
