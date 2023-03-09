@@ -3,7 +3,7 @@
 ![Dive 로고 ](https://user-images.githubusercontent.com/85875857/188046072-d0257a01-f220-4d7d-a38d-a847e71523f8.png)
 
 ## ⚠️ 주의사항
-`gradle.properties` 파일에 `스마트 택배 API 키` 1달마다 계속 변경해주어야합니다. (현재 API 변경 X)
+`gradle.properties` 파일에 `스마트 택배 API 키` 1달마다 계속 변경해주어야합니다. (현재 API 변경 O)
 
 ## 과정
 1. 스마트 택배 API 사용 신청하기
