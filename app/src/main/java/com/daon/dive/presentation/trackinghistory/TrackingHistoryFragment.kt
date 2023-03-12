@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daon.dive.data.entity.TrackingInformation
 import com.daon.dive.data.entity.TrackingItem
 import com.daon.dive.databinding.FragmentTrackingHistoryBinding
-import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.ScopeFragment
+import org.koin.android.scope.ScopeFragment
 import org.koin.core.parameter.parametersOf
 
 class TrackingHistoryFragment : ScopeFragment(), TrackingHistoryContract.View {
@@ -97,4 +96,3 @@ class TrackingHistoryFragment : ScopeFragment(), TrackingHistoryContract.View {
         binding?.refreshLayout?.isRefreshing = false
     }
 }
-
