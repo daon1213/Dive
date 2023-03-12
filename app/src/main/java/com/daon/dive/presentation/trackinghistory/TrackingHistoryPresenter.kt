@@ -8,7 +8,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class TrackingHistoryPresenter(
-    private val view: TrackingHistoryContract.View?,
+    private val view: TrackingHistoryContract.View,
     private val trackerRepository: TrackingItemRepository,
     private val trackingItem: TrackingItem,
     private var trackingInformation: TrackingInformation
@@ -17,7 +17,7 @@ class TrackingHistoryPresenter(
     override val scope: CoroutineScope = MainScope()
 
     override fun onViewCreated() {
-        view?.showTrackingItemInformation(trackingItem, trackingInformation)
+        view.showTrackingItemInformation(trackingItem, trackingInformation)
     }
 
     override fun onDestroyView() {}
@@ -29,12 +29,12 @@ class TrackingHistoryPresenter(
                     trackerRepository.getTrackingInformation(trackingItem.company.code, trackingItem.invoice)
                 newTrackingInformation?.let {
                     trackingInformation = it
-                    view?.showTrackingItemInformation(trackingItem, trackingInformation)
+                    view.showTrackingItemInformation(trackingItem, trackingInformation)
                 }
             } catch (exception: Exception) {
                 exception.printStackTrace()
             } finally {
-                view?.hideLoadingIndicator()
+                view.hideLoadingIndicator()
             }
         }
     }
@@ -43,7 +43,7 @@ class TrackingHistoryPresenter(
         scope.launch {
             try {
                 trackerRepository.deleteTrackingItem(trackingItem)
-                view?.finish()
+                view.finish()
             } catch (exception: Exception) {
                 exception.printStackTrace()
             }
