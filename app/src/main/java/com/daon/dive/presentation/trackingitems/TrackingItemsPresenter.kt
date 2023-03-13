@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class TrackingItemsPresenter(
-    private val view: TrackingItemsContract.View?,
+    private val view: TrackingItemsContract.View,
     private val trackingItemRepository: TrackingItemRepository
 ) : TrackingItemsContract.Presenter {
 
@@ -37,21 +37,21 @@ class TrackingItemsPresenter(
 
     private fun fetchTrackingInformation(forceFetch: Boolean = false) = scope.launch {
         try {
-            view?.showLoadingIndicator()
+            view.showLoadingIndicator()
 
             if (trackingItemInformation.isEmpty() || forceFetch) {
                 trackingItemInformation = trackingItemRepository.getTrackingItemInformation()
             }
 
             if (trackingItemInformation.isEmpty()) {
-                view?.showNoDataDescription()
+                view.showNoDataDescription()
             } else {
-                view?.showTrackingItemInformation(trackingItemInformation)
+                view.showTrackingItemInformation(trackingItemInformation)
             }
         } catch (exception: Exception) {
             exception.printStackTrace()
         } finally {
-            view?.hideLoadingIndicator()
+            view.hideLoadingIndicator()
         }
     }
 }
