@@ -15,7 +15,7 @@ import com.daon.dive.extension.toGone
 import com.daon.dive.extension.toInvisible
 import com.daon.dive.extension.toVisible
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.ScopeFragment
+import org.koin.android.scope.ScopeFragment
 
 class TrackingItemsFragment : ScopeFragment(), TrackingItemsContract.View {
 
