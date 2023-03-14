@@ -9,7 +9,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class AddTrackingItemPresenter(
-    private val view: AddTrackingItemsContract.View?,
+    private val view: AddTrackingItemsContract.View,
     private val shippingCompanyRepository: ShippingCompanyRepository,
     private val trackerRepository: TrackingItemRepository
 ) : AddTrackingItemsContract.Presenter {
@@ -28,21 +28,21 @@ class AddTrackingItemPresenter(
 
     override fun fetchShippingCompanies() {
         scope.launch {
-            view?.showShippingCompaniesLoadingIndicator()
+            view.showShippingCompaniesLoadingIndicator()
             if (shippingCompanies.isNullOrEmpty()) {
                 shippingCompanies = shippingCompanyRepository.getShippingCompanies()
             }
 
-            shippingCompanies?.let { view?.showCompanies(it) }
-            view?.hideShippingCompaniesLoadingIndicator()
+            shippingCompanies?.let { view.showCompanies(it) }
+            view.hideShippingCompaniesLoadingIndicator()
         }
     }
 
     override fun fetchRecommendShippingCompany() {
         scope.launch {
-            view?.showRecommendCompanyLoadingIndicator()
+            view.showRecommendCompanyLoadingIndicator()
             shippingCompanyRepository.getRecommendShippingCompany(invoice!!)?.let { view?.showRecommendCompany(it) }
-            view?.hideRecommendCompanyLoadingIndicator()
+            view.hideRecommendCompanyLoadingIndicator()
         }
     }
 
@@ -59,18 +59,18 @@ class AddTrackingItemPresenter(
     override fun saveTrackingItem() {
         scope.launch {
             try {
-                view?.showSaveTrackingItemIndicator()
+                view.showSaveTrackingItemIndicator()
                 trackerRepository.saveTrackingItem(
                     TrackingItem(
                         invoice!!,
                         selectedShippingCompany!!
                     )
                 )
-                view?.finish()
+                view.finish()
             } catch (exception: Exception) {
-                view?.showErrorToast(exception.message ?: "서비스에 문제가 생겨서 운송장을 추가하지 못했어요 😢")
+                view.showErrorToast(exception.message ?: "서비스에 문제가 생겨서 운송장을 추가하지 못했어요 😢")
             } finally {
-                view?.hideSaveTrackingItemIndicator()
+                view.hideSaveTrackingItemIndicator()
             }
         }
     }
