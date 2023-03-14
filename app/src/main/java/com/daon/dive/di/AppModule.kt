@@ -77,16 +77,16 @@ val appModule = module {
 
     // Presentation
     scope<TrackingItemsFragment> {
-        scoped<TrackingItemsContract.Presenter> { TrackingItemsPresenter(getSource(), get()) }
+        scoped<TrackingItemsContract.Presenter> { TrackingItemsPresenter(getSource()!!, get()) }
     }
     scope<AddTrackingItemFragment> {
         scoped<AddTrackingItemsContract.Presenter> {
-            AddTrackingItemPresenter(getSource(), get(), get())
+            AddTrackingItemPresenter(getSource()!!, get(), get())
         }
     }
     scope<TrackingHistoryFragment> {
         scoped<TrackingHistoryContract.Presenter> { (trackingItem: TrackingItem, trackingInformation: TrackingInformation) ->
-            TrackingHistoryPresenter(getSource(), get(), trackingItem, trackingInformation)
+            TrackingHistoryPresenter(getSource()!!, get(), trackingItem, trackingInformation)
         }
     }
 }
