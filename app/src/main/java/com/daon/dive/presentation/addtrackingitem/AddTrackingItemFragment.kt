@@ -21,7 +21,7 @@ import com.daon.dive.extension.toVisible
 import com.daon.dive.presentation.addtrackingitem.AddTrackingItemsContract.*
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.ScopeFragment
+import org.koin.android.scope.ScopeFragment
 
 class AddTrackingItemFragment : ScopeFragment(), AddTrackingItemsContract.View {
 
